@@ -1,0 +1,262 @@
+   * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #c6cef5 0%, #c4a2e6 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .calculator {
+            background: rgba(18, 24, 38, 0.95);
+            backdrop-filter: blur(15px);
+            border-radius: 25px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3), 
+                        0 0 0 1px rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            width: 350px;
+            border: 2px solid rgba(99, 102, 241, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .calculator::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, rgba(99, 102, 241, 0.1), rgba(168, 85, 247, 0.1));
+            z-index: -1;
+        }
+
+        .display {
+            background: linear-gradient(145deg, #1f2937, #111827);
+            border-radius: 20px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 
+                inset 0 4px 15px rgba(0, 0, 0, 0.3),
+                0 2px 10px rgba(99, 102, 241, 0.2);
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .display::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(99, 102, 241, 0.1), transparent);
+            animation: shimmer 3s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        .display-calculation {
+            font-size: 16px;
+            color: #9ca3af;
+            margin-bottom: 12px;
+            min-height: 20px;
+            text-align: right;
+            word-wrap: break-word;
+            font-family: 'Courier New', monospace;
+            letter-spacing: 1px;
+        }
+
+        .display-input {
+            font-size: 20px;
+            color: #d1d5db;
+            margin-bottom: 8px;
+            min-height: 26px;
+            text-align: right;
+            word-wrap: break-word;
+            font-family: 'Courier New', monospace;
+        }
+
+        .display-result {
+            font-size: 36px;
+            font-weight: 700;
+            color: #6366f1;
+            text-align: right;
+            min-height: 45px;
+            word-wrap: break-word;
+            font-family: 'Courier New', monospace;
+            text-shadow: 0 0 10px rgba(99, 102, 241, 0.3);
+        }
+
+        .buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+        }
+
+        .btn {
+            height: 65px;
+            border: none;
+            border-radius: 15px;
+            font-size: 20px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 
+                0 6px 12px rgba(0, 0, 0, 0.2),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.3) 0%, transparent 70%);
+            transition: all 0.4s ease;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .btn:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 
+                0 12px 25px rgba(0, 0, 0, 0.3),
+                0 0 20px rgba(99, 102, 241, 0.2);
+        }
+
+        .btn:active {
+            transform: translateY(-1px) scale(0.98);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .btn-number {
+            background: linear-gradient(145deg, #374151, #1f2937);
+            color: #f9fafb;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+        }
+
+        .btn-number:hover {
+            background: linear-gradient(145deg, #4b5563, #374151);
+            color: #ffffff;
+            box-shadow: 
+                0 12px 25px rgba(0, 0, 0, 0.3),
+                0 0 20px rgba(75, 85, 99, 0.4);
+        }
+
+        .btn-operator {
+            background: linear-gradient(145deg, #7c3aed, #5b21b6);
+            color: white;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+        }
+
+        .btn-operator:hover {
+            background: linear-gradient(145deg, #8b5cf6, #7c3aed);
+            box-shadow: 
+                0 12px 25px rgba(0, 0, 0, 0.3),
+                0 0 25px rgba(139, 92, 246, 0.5);
+        }
+
+        .btn-equals {
+            background: linear-gradient(145deg, #059669, #047857);
+            color: white;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+            grid-row: span 2;
+        }
+
+        .btn-equals:hover {
+            background: linear-gradient(145deg, #10b981, #059669);
+            box-shadow: 
+                0 12px 25px rgba(0, 0, 0, 0.3),
+                0 0 25px rgba(16, 185, 129, 0.5);
+        }
+
+        .btn-clear {
+            background: linear-gradient(145deg, #dc2626, #b91c1c);
+            color: white;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+        }
+
+        .btn-clear:hover {
+            background: linear-gradient(145deg, #ef4444, #dc2626);
+            box-shadow: 
+                0 12px 25px rgba(0, 0, 0, 0.3),
+                0 0 25px rgba(239, 68, 68, 0.5);
+        }
+
+        .btn-zero {
+            grid-column: span 2;
+        }
+
+        .btn-special {
+            background: linear-gradient(145deg, #f59e0b, #d97706);
+            color: white;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+        }
+
+        .btn-special:hover {
+            background: linear-gradient(145deg, #fbbf24, #f59e0b);
+            box-shadow: 
+                0 12px 25px rgba(0, 0, 0, 0.3),
+                0 0 25px rgba(251, 191, 36, 0.5);
+        }
+
+        @media (max-width: 400px) {
+            .calculator {
+                width: 300px;
+                padding: 25px;
+            }
+            
+            .btn {
+                height: 55px;
+                font-size: 18px;
+            }
+            
+            .display-result {
+                font-size: 30px;
+            }
+        }
+
+        .ripple {
+            position: absolute;
+            border-radius: 50%;
+            transform: scale(0);
+            animation: ripple 0.6s linear;
+            background-color: rgba(255, 255, 255, 0.4);
+            pointer-events: none;
+        }
+
+        @keyframes ripple {
+            to {
+                transform: scale(4);
+                opacity: 0;
+            }
+        }
+
+        /* Glowing effect for active operations */
+        .btn-active {
+            box-shadow: 
+                0 0 20px rgba(99, 102, 241, 0.6),
+                0 6px 12px rgba(0, 0, 0, 0.2);
+        }
